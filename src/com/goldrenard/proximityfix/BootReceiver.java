@@ -1,12 +1,12 @@
-package com.goldrenard.proximityfix;
+п»їpackage com.goldrenard.proximityfix;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
 /**
- * Рисивер автозагрузки
- * @author Renard Gold (Илья Егоров)
+ * Р РёСЃРёРІРµСЂ Р°РІС‚РѕР·Р°РіСЂСѓР·РєРё
+ * @author Renard Gold (РР»СЊСЏ Р•РіРѕСЂРѕРІ)
  */
 public class BootReceiver extends BroadcastReceiver {   
     @Override

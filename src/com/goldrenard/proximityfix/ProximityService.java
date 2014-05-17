@@ -1,4 +1,4 @@
-package com.goldrenard.proximityfix;
+п»їpackage com.goldrenard.proximityfix;
 
 import android.app.Service;
 import android.content.Context;
@@ -13,7 +13,10 @@ import android.os.PowerManager.WakeLock;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 
-@SuppressWarnings("deprecation")
+/**
+ * РЎР»СѓР¶Р±Р° СЃР»РµР¶РµРЅРёСЏ Р·Р° СЃРѕСЃС‚РѕСЏРЅРёСЏРјРё РІС‹Р·РѕРІР° Рё РґР°С‚С‡РёРєР° РїСЂРёР±Р»РёР¶РµРЅРёСЏ
+ * @author Renard Gold (РР»СЊСЏ Р•РіРѕСЂРѕРІ)
+ */
 public class ProximityService extends Service {
 
 	private static final String LOG_TAG = "ProximityService";
@@ -26,7 +29,7 @@ public class ProximityService extends Service {
     private int PROXIMITY_SCREEN_OFF_WAKE_LOCK = PowerManager.PARTIAL_WAKE_LOCK;
 	
     /**
-     * Листенер датчика приближения
+     * Р›РёСЃС‚РµРЅРµСЂ СЃРѕСЃС‚РѕСЏРЅРёСЏ РґР°С‚С‡РёРєР° РїСЂРёР±Р»РёР¶РµРЅРёСЏ
      */
 	private SensorEventListener mProximityListener = new SensorEventListener() {
 		@Override
@@ -36,16 +39,16 @@ public class ProximityService extends Service {
 	};
 	
 	/**
-	 * Листенер действий телефона
+	 * Р›РёСЃС‚РµРЅРµСЂ СЃРѕСЃС‚РѕСЏРЅРёСЏ РІС‹Р·РѕРІР°
 	 */
 	private PhoneStateListener mPhoneStateListener = new PhoneStateListener() {
         public void onCallStateChanged(int state, String incomingNumber) {
         	switch (state) {
-        		case TelephonyManager.CALL_STATE_IDLE:		// Звонок окончен или отсутствует
+        		case TelephonyManager.CALL_STATE_IDLE:		// РѕРєРѕРЅС‡Р°РЅРёРµ РІС‹Р·РѕРІР°
         			mSensorManager.unregisterListener(mProximityListener);
         			doBlock(false);
         			break;
-             	case TelephonyManager.CALL_STATE_OFFHOOK:	// Начало звонка
+             	case TelephonyManager.CALL_STATE_OFFHOOK:	// Р°РєС‚РёРІРЅРѕРµ СЃРѕСЃС‚РѕСЏРЅРёРµ РІС‹Р·РѕРІР°
              		mSensorManager.registerListener(mProximityListener, mSensor, SensorManager.SENSOR_DELAY_FASTEST);
              		break;
              }
@@ -81,14 +84,14 @@ public class ProximityService extends Service {
 	}
 	
 	/**
-	 * Получить блок
-	 * @param isBlocked Нужно ли получить блок
+	 * РџРѕР»СѓС‡РµРЅРёРµ WakeLock
+	 * @param isBlocked РќСѓР¶РЅРѕ Р»Рё Р·Р°Р±Р»РѕРєРёСЂРѕРІР°С‚СЊ
 	 */
 	public void doBlock(boolean isBlocked) {
 		if (isBlocked) {
 			acquireWakeLock(false);
 		} else {
-			acquireWakeLock(true);		// форсируем просыпание
+			acquireWakeLock(true);		// РѕС‚РїСѓСЃРєР°РµРј Р±Р»РѕРє Рё С„РѕСЂСЃРёРј РІРєР»СЋС‡РµРЅРёРµ СЌРєСЂР°РЅР°
 			releaseWakeLock();
 		}
 	}
@@ -98,11 +101,11 @@ public class ProximityService extends Service {
      * ============================================================================== */
 
     /**
-     * Получение блока
-     * @param isWake Если True, то форсим просыпание девайса
+     * РџРѕР»СѓС‡РµРЅРёРµ Р±Р»РѕРєР°
+     * @param isWake РќСѓР¶РЅРѕ Р»Рё СЂР°Р·Р±СѓРґРёС‚СЊ РґРµРІР°Р№СЃ
      */
 	private void acquireWakeLock(boolean isWake) {
-    	releaseWakeLock();	// отпускаем старый блок на всякий случай
+    	releaseWakeLock();	// РЅР° РІСЃСЏРєРёР№ СЃР»СѓС‡Р°Р№ РѕС‚РїСѓСЃРєР°РµРј РїСЂРµРґС‹РґСѓС‰РёР№ Р±Р»РѕРє РµСЃР»Рё РµСЃС‚СЊ
         if (isWake) {
         	mWakeLock = mPowerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, LOG_TAG);
         } else {
@@ -113,7 +116,7 @@ public class ProximityService extends Service {
     }
 
     /**
-     * Отпустить блокировку
+     * РћС‚РїСѓСЃРєР°РµРј Р±Р»РѕРє
      */
     private void releaseWakeLock() {
         if (mWakeLock != null && mWakeLock.isHeld()) {

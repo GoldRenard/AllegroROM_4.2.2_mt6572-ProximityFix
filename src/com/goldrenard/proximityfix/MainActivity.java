@@ -1,4 +1,4 @@
-package com.goldrenard.proximityfix;
+﻿package com.goldrenard.proximityfix;
 
 import android.app.Activity;
 import android.content.Intent;
